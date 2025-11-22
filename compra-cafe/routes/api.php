@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CafeController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegistroController as AuthController;
 
 Route::prefix('cafes')->group(function () {
     Route::get('/', [CafeController::class, 'listar']);
@@ -13,7 +13,5 @@ Route::prefix('cafes')->group(function () {
     Route::delete('/{id}', [CafeController::class, 'excluir']);
 });
 
-Route::post('/registro', function (Request $request) {
-    $token = $request->user()->createToken('auth_token');
-    return ['token' => $token->plainTextToken];
-});
+Route::post('/registro', [AuthController::class, 'registro']);
+Route::post('/login', [LoginController::class, 'login']);

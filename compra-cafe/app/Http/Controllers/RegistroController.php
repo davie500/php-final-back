@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Requests\UserRequest;
+use Illuminate\Foundation\Auth\User as AuthUser;
+use Illuminate\Support\Facades\Hash;
 
-class AuthController extends Controller
+class RegistroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +21,17 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function registro(UserRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $user = User::create([
+            'nome' => $data['nome'],
+            'email'  => $data['email'],
+            'senha_hash' => Hash::make($data['senha_hash']),
+        ]);
+
+        return ['message' => 'Usuário registrado com sucesso', 'data' => $user];
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cafe;
 use App\Http\Requests\CafeRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule as ValidationRule;
+// use Illuminate\Validation\Rule as ValidationRule;
 
 class CafeController extends Controller
 {

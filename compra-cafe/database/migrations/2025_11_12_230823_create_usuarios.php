@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome')->unique();
             $table->string('email')->unique();
-            $table->string('telefone')->nullable();
-            $table->string('senha');
+            $table->string('senha_hash');
             $table->boolean('admin')->default(false);
             $table->dateTime('criado_em')->useCurrent();
             $table->timestamps();
