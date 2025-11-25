@@ -18,9 +18,19 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nome',
         'email',
-        'passowrd',
+        'senha_hash',
+        'admin',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'admin' => 'boolean',
     ];
 
     /**
@@ -29,7 +39,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'senha_hash',
         'remember_token',
     ];
 
@@ -45,4 +55,7 @@ class User extends Authenticatable
             'senha' => 'hashed',
         ];
     }
+
+    protected $table = 'usuarios';
+    public $timestamps = false;
 }

@@ -21,18 +21,25 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'senha' => 'required|string|min:8',
+        ]);
+
         $user = User::where('email', $request->email)->first();
-        
+
         if (!$user) {
-            return ['message' => 'Credênciais inválidas'];
-        }
-        
-        if(!Hash::check($request->password, $user->password)){
-            return ['message' => 'Senha inválida'];
+            return response()->json(['message' => 'Usuário não encontrado'], 404);
         }
 
-        if (Hash::needsRehash($user->password)) {
-            $user->password = Hash::make($request->password);
+        // Verifica a senha
+        if (!Hash::check($request->senha, $user->senha_hash)) {
+            return response()->json(['message' => 'Senha incorreta'], 401);
+        }
+
+        // Rehash se necessário
+        if (Hash::needsRehash($user->senha_hash)) {
+            $user->senha_hash = Hash::make($request->senha);
             $user->save();
         }
 

@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
                     ->numbers()
                     ->symbols(),
             ],
-            
+            'admin' => 'sometimes|boolean',
         ];
     }
 
@@ -42,6 +42,7 @@ class UserRequest extends FormRequest
         return [
             'name.required' => 'O campo nome é obrigatório.',
             'name.string' => 'O nome deve ser no formato texto.',
+            'name.unique' => 'Este nome já está em uso.',
             'email.required' => 'O campo email é obrigatório.',
             'email.string' => 'O email deve ser no formato texto.',
             'email.email' => 'O email deve ser um endereço de email válido.',
@@ -52,6 +53,7 @@ class UserRequest extends FormRequest
             'password.mixedCase' => 'A senha deve conter letras maiúsculas e minúsculas.',
             'password.numbers' => 'A senha deve conter pelo menos um número.',
             'password.symbols' => 'A senha deve conter pelo menos um símbolo.',
+            'admin.boolean' => 'O campo admin deve ser true ou false.',
         ];
     }
 }

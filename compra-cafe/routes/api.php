@@ -13,5 +13,10 @@ Route::prefix('cafes')->group(function () {
     Route::delete('/{id}', [CafeController::class, 'excluir']);
 });
 
-Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/registro', [AuthController::class, 'registro']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/usuarios/{id}', [AuthController::class, 'atualizar']);
+    Route::delete('/usuarios/{id}', [AuthController::class, 'excluir']);
+});
