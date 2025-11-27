@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
             $table->decimal('valor_total', 10, 2);
-            $table->foreignKey('usuario_id')->references('id')->on('cafes')->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

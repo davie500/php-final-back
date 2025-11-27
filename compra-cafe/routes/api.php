@@ -17,6 +17,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/registro', [AuthController::class, 'registro']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/usuarios', [AuthController::class, 'buscar']);
     Route::put('/usuarios/{id}', [AuthController::class, 'atualizar']);
     Route::delete('/usuarios/{id}', [AuthController::class, 'excluir']);
 });

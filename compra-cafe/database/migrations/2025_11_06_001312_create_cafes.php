@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('origem');
             $table->string('marca');
             $table->decimal('preco', 10, 2);
-            $table->timestamps('criado_em')->useCurrent();
+            $table->timestamp('criado_em')->useCurrent();
         });
 
         Schema::create('cafes_filtros', function (Blueprint $table) {

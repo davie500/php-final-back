@@ -12,9 +12,17 @@ class RegistroController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function buscar(Request $request)
     {
-        //
+        $auth = $request->user();
+
+        if (!$auth || !$auth->admin) {
+            return response()->json(['message' => 'Ação permitida apenas para administradores'], 403);
+        }
+
+        $usuarios = User::where('admin', false)->get();
+        
+        return response()->json(['message' => 'Listando usuários', 'data' => $usuarios], 200);
     }
 
     /**
@@ -53,7 +61,8 @@ class RegistroController extends Controller
      */
     public function atualizar(Request $request, string $id)
     {
-        $auth = auth('sanctum')->user();
+        $auth = $request->user();
+
         if (!$auth || !$auth->admin) {
             return response()->json(['message' => 'Ação permitida apenas para administradores'], 403);
         }
@@ -69,7 +78,7 @@ class RegistroController extends Controller
 
         $validated = $request->validate([
             'nome' => 'sometimes|string',
-            'email' => 'sometimes|email|unique:users,email,'.$id,
+            'email' => 'sometimes|email|unique:usuarios,email,'.$id,
             'senha_hash' => 'sometimes|string|min:8',
         ]);
 
