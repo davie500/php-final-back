@@ -32,18 +32,19 @@ class LoginController extends Controller
             return response()->json(['message' => 'Usuário não encontrado'], 404);
         }
 
-        // Verifica a senha
         if (!Hash::check($request->senha, $user->senha_hash)) {
             return response()->json(['message' => 'Senha incorreta'], 401);
         }
 
-        // Rehash se necessário
-        if (Hash::needsRehash($user->senha_hash)) {
-            $user->senha_hash = Hash::make($request->senha);
-            $user->save();
-        }
+        $token = $user->createToken('api-token')->plainTextToken;
 
-        return ['message' => 'Usuário logado com sucesso', 'data' => $user];
+        return response()->json([
+            'message' => 'Usuário logado com sucesso',
+            'data' => [
+                'user' => $user,
+                'token' => $token
+            ]
+        ], 200);
     }
 
     /**

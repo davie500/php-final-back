@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CafeController;
-use App\Http\Controllers\RegistroController as AuthController;
+use App\Http\Controllers\RegistroController;
 
 Route::prefix('cafes')->group(function () {
     Route::get('/', [CafeController::class, 'listar']);
@@ -14,10 +14,10 @@ Route::prefix('cafes')->group(function () {
 });
 
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/registro', [AuthController::class, 'registro']);
+Route::post('/registro', [RegistroController::class, 'registro']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/usuarios', [AuthController::class, 'buscar']);
-    Route::put('/usuarios/{id}', [AuthController::class, 'atualizar']);
-    Route::delete('/usuarios/{id}', [AuthController::class, 'excluir']);
+    Route::get('/usuarios', [RegistroController::class, 'buscar']);
+    Route::put('/usuarios/{id}', [RegistroController::class, 'atualizar']);
+    Route::delete('/usuarios/{id}', [RegistroController::class, 'excluir']);
 });

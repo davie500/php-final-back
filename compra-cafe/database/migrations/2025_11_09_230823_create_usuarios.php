@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('senha_hash');
             $table->boolean('admin')->default(false);
+            $table->tinyInteger('ativo')->default(1);
             $table->dateTime('criado_em')->useCurrent();
-            $table->timestamps();
         });
     }
 

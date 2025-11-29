@@ -14,15 +14,29 @@ class RegistroController extends Controller
      */
     public function buscar(Request $request)
     {
+        // $auth = $request->user();
+
+        // if (!$auth || !$auth->admin) {
+        //     return response()->json(['message' => 'Ação permitida apenas para administradores'], 403);
+        // }
+        
+        // $usuarios = User::where('admin', false)->get();
+        
+        // return response()->json(['message' => 'Listando usuários', 'data' => $usuarios], 200);
+
         $auth = $request->user();
 
-        if (!$auth || !$auth->admin) {
-            return response()->json(['message' => 'Ação permitida apenas para administradores'], 403);
+        if ($auth->admin) {
+            // Admin vê todos
+            $usuarios = User::all();
+            return response()->json(['message' => 'Listando usuários e administradores', 'data' => $usuarios], 200);
+        } else {
+            // Usuário comum vê apenas não-admin
+            $usuarios = User::where('admin', false)->get();
+            return response()->json(['message' => 'Listando usuários', 'data' => $usuarios], 200);
         }
 
-        $usuarios = User::where('admin', false)->get();
-        
-        return response()->json(['message' => 'Listando usuários', 'data' => $usuarios], 200);
+
     }
 
     /**
