@@ -94,6 +94,8 @@ class RegistroController extends Controller
             'nome' => 'sometimes|string',
             'email' => 'sometimes|email|unique:usuarios,email,'.$id,
             'senha_hash' => 'sometimes|string|min:8',
+            'admin' => 'sometimes|boolean',
+            'ativo' => 'sometimes|tinyint',
         ]);
 
         if (isset($validated['nome'])) {
@@ -104,6 +106,14 @@ class RegistroController extends Controller
         }
         if (isset($validated['senha_hash'])) {
             $user->senha_hash = Hash::make($validated['senha_hash']);
+        }
+
+        if(isset($validated['admin'])) {
+            $user->admin = $validated['admin'];
+        }
+
+        if(isset($validated['ativo'])) {
+            $user->ativo = $validated['ativo'];
         }
 
         $user->save();
