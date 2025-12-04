@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('filas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
+            $table->Integer('posicao');
+            $table->enum('status', ['aguardando', 'em_atendimento', 'finalizado'])->default('aguardando');
+            $table->timestamps();
         });
     }
 

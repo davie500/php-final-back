@@ -3,16 +3,35 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Fila extends Model
 {
     protected $table = 'filas';
     protected $primaryKey = 'id';
-    // public $timestamps = false;
 
-    public function fila(): HasMany
+    protected $fillable = [
+        'usuario_id',
+        'posicao',
+        'status',
+    ];
+
+    public static function adicionarNaFila($usuarioId)
     {
-        return $this->hasMany(Fila::class, 'fila_id', 'id');
+        // pega maior posição
+        $ultimaPos = self::max('posicao');
+
+        if (!$ultimaPos) {
+            $ultimaPos = 0;
+        }
+
+        return self::create([
+            'usuario_id' => $usuarioId,
+            'posicao' => $ultimaPos + 1,
+            'status' => 'aguardando',
+        ]);
+    }
+
+    public function usuario() {
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 }

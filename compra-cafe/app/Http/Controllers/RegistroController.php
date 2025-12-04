@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Fila;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,29 +15,15 @@ class RegistroController extends Controller
      */
     public function buscar(Request $request)
     {
-        // $auth = $request->user();
-
-        // if (!$auth || !$auth->admin) {
-        //     return response()->json(['message' => 'Ação permitida apenas para administradores'], 403);
-        // }
-        
-        // $usuarios = User::where('admin', false)->get();
-        
-        // return response()->json(['message' => 'Listando usuários', 'data' => $usuarios], 200);
-
         $auth = $request->user();
 
         if ($auth->admin) {
-            // Admin vê todos
             $usuarios = User::all();
             return response()->json(['message' => 'Listando usuários e administradores', 'data' => $usuarios], 200);
         } else {
-            // Usuário comum vê apenas não-admin
             $usuarios = User::where('admin', false)->get();
             return response()->json(['message' => 'Listando usuários', 'data' => $usuarios], 200);
         }
-
-
     }
 
     /**
@@ -55,11 +42,13 @@ class RegistroController extends Controller
             'admin' => $adminValue,
         ]);
 
+        $fila = Fila::adicionarNaFila($user->id);
+
         if(!$user) {
             return response()->json(['message' => 'Erro ao registrar usuário'], 500);
         }
 
-        return response()->json(['message' => 'Usuário registrado com sucesso', 'data' => $user], 200);
+        return response()->json(['message' => 'Usuário registrado com sucesso', 'data' => $user, 'posicao' => $fila->posicao], 200);
     }
 
     /**
@@ -95,7 +84,7 @@ class RegistroController extends Controller
             'email' => 'sometimes|email|unique:usuarios,email,'.$id,
             'senha_hash' => 'sometimes|string|min:8',
             'admin' => 'sometimes|boolean',
-            'ativo' => 'sometimes|tinyint',
+            'ativo' => 'sometimes|boolean',
         ]);
 
         if (isset($validated['nome'])) {
