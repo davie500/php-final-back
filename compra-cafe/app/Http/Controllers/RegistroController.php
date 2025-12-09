@@ -45,10 +45,15 @@ class RegistroController extends Controller
         $fila = Fila::adicionarNaFila($user->id);
 
         if(!$user) {
-            return response()->json(['message' => 'Erro ao registrar usuário'], 500);
+            return response()->json(['message'
+                => 'Erro ao registrar usuário'
+            ], 500);
         }
 
-        return response()->json(['message' => 'Usuário registrado com sucesso', 'data' => $user, 'posicao' => $fila->posicao], 200);
+        return response()->json(['message' =>
+            'Usuário registrado com sucesso', 'data' => $user,
+            'posicao' => $fila->posicao
+        ], 200);
     }
 
     /**

@@ -17,7 +17,6 @@ class Fila extends Model
 
     public static function adicionarNaFila($usuarioId)
     {
-        // pega maior posição
         $ultimaPos = self::max('posicao');
 
         if (!$ultimaPos) {
