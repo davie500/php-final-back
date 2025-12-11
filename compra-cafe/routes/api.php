@@ -9,7 +9,6 @@ Route::prefix('cafes')->group(function () {
     Route::get('/', [CafeController::class, 'listar']);
     Route::post('/', [CafeController::class, 'criar']);
     Route::get('/{id}', [CafeController::class, 'buscar']);
-    Route::put('/{id}', [CafeController::class, 'update']);
     Route::delete('/{id}', [CafeController::class, 'excluir']);
 });
 

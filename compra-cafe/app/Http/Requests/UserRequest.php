@@ -32,6 +32,7 @@ class UserRequest extends FormRequest
                     ->mixedCase()
                     ->numbers()
                     ->symbols(),
+                'confirmed'
             ],
             'admin' => 'sometimes|boolean',
         ];
