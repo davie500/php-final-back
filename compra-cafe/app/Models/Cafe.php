@@ -15,6 +15,7 @@ class Cafe extends Model
         'origem',
         'marca',
         'preco',
+        'imagem_url',
         'criado_em',
     ];
 }

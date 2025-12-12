@@ -26,7 +26,7 @@ class CafeRequest extends FormRequest
             'origem' => 'required|string|max:100',
             'marca' => 'required|string|max:50',
             'preco' => 'required|numeric|min:0',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagem_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 

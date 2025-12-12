@@ -33,6 +33,11 @@ class CafeController extends Controller
         $cafe->marca = $validacao['marca'];
         $cafe->preco = $validacao['preco'];
         $cafe->save();
+
+        if ($request->hasFile('imagem')) {
+            $path = $request->file('imagem')->store('cafes', 'public');
+            $validated['imagem'] = $path;
+        }
         
         return ['message' => 'Café criado com sucesso', 'data' => $cafe];
     }

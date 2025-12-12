@@ -31,8 +31,7 @@ class UserRequest extends FormRequest
                 Password::min(8)
                     ->mixedCase()
                     ->numbers()
-                    ->symbols(),
-                'confirmed'
+                    ->symbols()
             ],
             'admin' => 'sometimes|boolean',
         ];

@@ -7,8 +7,8 @@ use App\Http\Controllers\RegistroController;
 
 Route::prefix('cafes')->group(function () {
     Route::get('/', [CafeController::class, 'listar']);
-    Route::post('/', [CafeController::class, 'criar']);
     Route::get('/{id}', [CafeController::class, 'buscar']);
+    Route::post('/', [CafeController::class, 'criar']);
     Route::delete('/{id}', [CafeController::class, 'excluir']);
 });
 
