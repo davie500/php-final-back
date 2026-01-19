@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->Integer('posicao');
-            $table->enum('status', ['aguardando', 'em_atendimento', 'finalizado'])->default('aguardando');
+            $table->enum('status', ['aguardando', 'em atendimento', 'finalizado'])->default('aguardando');
             $table->timestamps();
         });
     }

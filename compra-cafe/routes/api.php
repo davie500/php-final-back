@@ -4,13 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\FilaController;
 
 Route::prefix('cafes')->group(function () {
     Route::get('/', [CafeController::class, 'listar']);
     Route::get('/{id}', [CafeController::class, 'buscar']);
     Route::post('/', [CafeController::class, 'criar']);
     Route::delete('/{id}', [CafeController::class, 'excluir']);
+    Route::post('/{id}/comprar', [CafeController::class, 'comprar']);
 });
+
+Route::get('/fila', [FilaController::class, 'listar']);
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/registro', [RegistroController::class, 'registro']);
